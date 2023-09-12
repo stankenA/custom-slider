@@ -1,28 +1,71 @@
-import React from 'react';
-import styles from './styles.module.scss';
+import React, { useState } from 'react';
+import './Slider.scss';
+import { slidesArr } from '../../utils/contstants';
 
 function Slider() {
+
+  const [activeSlide, setActiveSlider] = useState(0);
+
+  function showPrevSlide() {
+    if (activeSlide === 0) {
+      setActiveSlider(slidesArr.length - 1);
+      return;
+    }
+
+    setActiveSlider(activeSlide - 1);
+  }
+
+  function showNextSlide() {
+    if (activeSlide === slidesArr.length - 1) {
+      setActiveSlider(0);
+      return;
+    }
+
+    setActiveSlider(activeSlide + 1);
+  }
+
   return (
-    <section className={styles.slider}>
-      <h1 className={styles.title}>
+    <section className="slider">
+      <h1 className="slider__title">
         Custom slider by StankenA
       </h1>
-      <div className={styles.container}>
-        <button type="button" className={`${styles.button} ${styles['button_prev']}`}></button>
-        <ul className={styles.list}>
-          <li className={styles.item}>
-            <img src="https://catherineasquithgallery.com/uploads/posts/2023-02/1676556467_catherineasquithgallery-com-p-kartinki-fon-zelenogo-tsveta-72.jpg" alt="smth" className={styles.img} />
-          </li>
+      <div className="slider__container">
+        <button
+          type="button"
+          className="slider__button slider__button_prev"
+          onClick={showPrevSlide}
+        ></button>
+        <ul className="slider__list">
+          {
+            slidesArr.map((slide, i) => (
+              <li
+                className={`slider__item
+                  ${i < activeSlide ? 'slider__item_shown' : ''} ${i === activeSlide ? 'slider__item_active' : ''}`
+                }
+                key={slide.id}
+              >
+                <img src={slide.img} alt={slide.title} className="slider__img" />
+              </li>
+            ))
+          }
         </ul>
-        <button type="button" className={styles.button}></button>
+        <button
+          type="button"
+          className="slider__button"
+          onClick={showNextSlide}
+        ></button>
       </div>
-      <p className={styles.description}>Ffff</p>
-      <ul className={styles.pagination}>
-        <li className={`${styles['pagination-bullet']} ${styles['pagination-bullet-active']}`}></li>
-        <li className={styles['pagination-bullet']}></li>
-        <li className={styles['pagination-bullet']}></li>
-        <li className={styles['pagination-bullet']}></li>
-        <li className={styles['pagination-bullet']}></li>
+      <p className="slider__description">{slidesArr[activeSlide].title}</p>
+      <ul className="slider__pagination">
+        {
+          [...new Array(slidesArr.length)].map((el, i) => (
+            <li
+              key={i}
+              className={`slider__pagination-bullet ${i === activeSlide ? 'slider__pagination-bullet_active' : ''}`}
+              onClick={() => setActiveSlider(i)}
+            ></li>
+          ))
+        }
       </ul>
     </section>
   )
