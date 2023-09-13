@@ -57,6 +57,10 @@
     overflow: hidden;
     position: relative;
 
+    @media screen and (max-width: 1023px) {
+      width: 90%;
+    }
+
     @media screen and (max-width: 767px) {
       height: 300px;
       width: 100%;

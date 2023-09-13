@@ -6,7 +6,9 @@ function Slider() {
 
   const [activeSlide, setActiveSlide] = useState(0);
   const [isAutoplay, setIsAutoPlay] = useState(false);
+  const [touchPosition, setTouchPosition] = useState(null);
   let timer;
+  console.log(touchPosition)
 
   function showPrevSlide() {
     if (activeSlide === 0) {
@@ -24,6 +26,34 @@ function Slider() {
     }
 
     setActiveSlide(activeSlide + 1);
+  }
+
+  function handleTouchStart(evt) {
+    const touchDown = evt.touches[0].clientX;
+    setTouchPosition(touchDown);
+  }
+
+  function handleTouchMove(evt) {
+    const touchDown = touchPosition;
+
+    if (touchDown === null) {
+      return;
+    }
+
+    const currentTouch = evt.touches[0].clientX;
+    const diff = touchDown - currentTouch;
+
+    if (diff > 5) {
+      console.log('swipe right')
+      showNextSlide();
+    }
+
+    if (diff < 5) {
+      console.log('swipe left')
+      showPrevSlide();
+    }
+
+    setTouchPosition(null);
   }
 
   function toggleAutoplay() {
@@ -60,7 +90,7 @@ function Slider() {
           className="slider__button slider__button_prev"
           onClick={showPrevSlide}
         ></button>
-        <ul className="slider__list">
+        <ul className="slider__list" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove}>
           {
             slidesArr.map((slide, i) => (
               <li
