@@ -1,5 +1,6 @@
 # Кастомный слайдер на React
 
+![image](https://github.com/stankenA/custom-slider/assets/82235915/72519e10-b2ff-41fe-8609-8bd70b787b63)
 
 
 ## Описание
