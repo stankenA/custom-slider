@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './Slider.scss';
 import { slidesArr } from '../../utils/contstants';
 
-function Slider() {
+const Slider = () => {
 
   const [activeSlide, setActiveSlide] = useState(0);
   const [isAutoplay, setIsAutoPlay] = useState(false);
   const [touchPosition, setTouchPosition] = useState(null);
   let timer;
-  console.log(touchPosition)
 
   function showPrevSlide() {
     if (activeSlide === 0) {

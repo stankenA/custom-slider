@@ -1,7 +1,8 @@
+import React from 'react';
 import Slider from '../Slider/Slider';
 import './App.scss';
 
-function App() {
+const App = () => {
   return (
     <div className="page">
       <main className="main">
