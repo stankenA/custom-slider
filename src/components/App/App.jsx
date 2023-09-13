@@ -1,9 +1,9 @@
 import Slider from '../Slider/Slider';
-import styles from './styles.module.scss';
+import './App.scss';
 
 function App() {
   return (
-    <div className={styles.page}>
+    <div className="page">
       <main className="main">
         <Slider />
       </main>

@@ -2,7 +2,7 @@ export const slidesArr = [
   {
     id: 1,
     title: 'Planetscape',
-    img: 'https://w.forfun.com/fetch/2d/2de784ef13b07d16b12bb27458829ac4.jpeg'
+    img: 'https://w.forfun.com/fetch/78/7822e891c6180dd5ddd19bf659c7aa67.jpeg'
   },
   {
     id: 2,

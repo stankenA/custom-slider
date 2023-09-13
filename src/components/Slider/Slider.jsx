@@ -1,28 +1,53 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Slider.scss';
 import { slidesArr } from '../../utils/contstants';
 
 function Slider() {
 
-  const [activeSlide, setActiveSlider] = useState(0);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isAutoplay, setIsAutoPlay] = useState(false);
+  let timer;
 
   function showPrevSlide() {
     if (activeSlide === 0) {
-      setActiveSlider(slidesArr.length - 1);
+      setActiveSlide(slidesArr.length - 1);
       return;
     }
 
-    setActiveSlider(activeSlide - 1);
+    setActiveSlide(activeSlide - 1);
   }
 
   function showNextSlide() {
     if (activeSlide === slidesArr.length - 1) {
-      setActiveSlider(0);
+      setActiveSlide(0);
       return;
     }
 
-    setActiveSlider(activeSlide + 1);
+    setActiveSlide(activeSlide + 1);
   }
+
+  function toggleAutoplay() {
+    setIsAutoPlay(!isAutoplay);
+  }
+
+  function countTimer() {
+    timer = !timer && setInterval(() => {
+      if (activeSlide === slidesArr.length - 1) {
+        setActiveSlide(0);
+        return;
+      }
+
+      setActiveSlide(activeSlide => activeSlide + 1);
+    }, 4000);
+  }
+
+  useEffect(() => {
+    if (isAutoplay) {
+      countTimer();
+    }
+
+    return () => clearInterval(timer);
+  }, [activeSlide, isAutoplay])
 
   return (
     <section className="slider">
@@ -62,11 +87,18 @@ function Slider() {
             <li
               key={i}
               className={`slider__pagination-bullet ${i === activeSlide ? 'slider__pagination-bullet_active' : ''}`}
-              onClick={() => setActiveSlider(i)}
+              onClick={() => setActiveSlide(i)}
             ></li>
           ))
         }
       </ul>
+      <button
+        type="button"
+        className="slider__autoplay"
+        onClick={toggleAutoplay}
+      >
+        {isAutoplay ? 'Stop autoplay' : 'Start autoplay'}
+      </button>
     </section>
   )
 }
