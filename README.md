@@ -28,4 +28,4 @@
 
 ## Ссылки
 
-**Демо**: https://stankena.github.io/rzd
+**Демо**: https://stankena.github.io/custom-slider/
